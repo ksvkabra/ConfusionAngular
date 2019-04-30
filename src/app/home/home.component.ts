@@ -10,7 +10,8 @@ import { PromotionService } from '../services/promotion.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements
+ OnInit {
 
   dish: Dish;
   maybeFeaturedLeader: Leader;
@@ -21,9 +22,12 @@ export class HomeComponent implements OnInit {
     private promotionService: PromotionService) { }
 
   ngOnInit() {
-    this.dish = this.dishService.getFeaturedDish();
-    this.promotion = this.promotionService.getFeaturedPromotion();
-    this.maybeFeaturedLeader = this.leaderService.getFeaturedLeader();
+    this.dishService.getFeaturedDish()
+      .then(dish => this.dish = dish);
+    this.promotionService.getFeaturedPromotion()
+    .then(promotion => this.promotion = promotion);
+    this.leaderService.getFeaturedLeader()
+    .then(leader => this.maybeFeaturedLeader = leader);
   }
 
 }
