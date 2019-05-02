@@ -12,7 +12,7 @@
       <h3>{{dish.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+  <img mat-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
   <mat-card-content>
     <p>{{dish.description}}
     </p>
@@ -22,37 +22,38 @@
   <mat-spinner></mat-spinner> <h4>Loading . . . Please Wait</h4>
 </div>
 
-<mat-card *ngIf="promotion" fxFlex>
+<mat-card *ngIf="promotions" fxFlex>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
-      <h3>{{promotion.name | uppercase}}</h3>
+      <h3>{{promotions.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
+  <img mat-card-image src="{{BaseURL + promotions.image}}" alt={{promotions.name}}>
   <mat-card-content>
-    <p>{{promotion.description}}
+    <p>{{promotions.description}}
+      
     </p>
   </mat-card-content>
 </mat-card>
-<div fxFlex [hidden]="promotion">
+<div fxFlex [hidden]="promotions">
   <mat-spinner></mat-spinner> <h4>Loading . . . Please Wait</h4>
 </div>
 
-<mat-card *ngIf="maybeFeaturedLeader" fxFlex>
+<mat-card *ngIf="leadership" fxFlex>
   <mat-card-header>
       <div mat-card-avatar></div>
       <mat-card-title>
-          <h3>{{maybeFeaturedLeader.name | uppercase}}</h3>
+          <h3>{{leadership.name | uppercase}}</h3>
       </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{maybeFeaturedLeader.image}} alt={{maybeFeaturedLeader.name}}>
+  <img mat-card-image src="{{BaseURL + leadership.image}}" alt={{leadership.name}}>
   <mat-card-content>
-      <h4>{{ maybeFeaturedLeader.designation }}</h4>
-      <p>{{ maybeFeaturedLeader.description }}</p>
+      <h4>{{ leadership.designation }}</h4>
+      <p>{{ leadership.description }}</p>
   </mat-card-content>
 </mat-card>
-<div fxFlex [hidden]="maybeFeaturedLeader">
+<div fxFlex [hidden]="leadership">
   <mat-spinner></mat-spinner> <h4>Loading . . . Please Wait</h4>
 </div>
 
