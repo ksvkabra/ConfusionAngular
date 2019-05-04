@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut } from '../animations/app.animations';
-
+import { flyInOut, expand } from '../animations/app.animations';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +13,8 @@ import { flyInOut } from '../animations/app.animations';
     'style': 'display: block;'
   },
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
@@ -21,6 +22,10 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  errMess: string;
+  submission = null;
+  spinner = false;
+  showForm = true;
   @ViewChild('fform') FeedbackFormDirective;
 
   formErrors = {
@@ -51,7 +56,8 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -94,22 +100,28 @@ export class ContactComponent implements OnInit {
     }
   }
 
-
-
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.showForm = false;
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+         this.submission = feedback;
+         this.feedback = null;
+         setTimeout(() => { this.submission = null; this.showForm = true; }, 5000);
+        },
+        error => console.log(error.status, error.message));
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
-      telnum: 0,
+      telnum: '',
       email: '',
       agree: false,
-      contactType: 'None',
+      contacttype: 'None',
       message: ''
     });
     this.FeedbackFormDirective.resetForm();
-    
   }
+
 
 }

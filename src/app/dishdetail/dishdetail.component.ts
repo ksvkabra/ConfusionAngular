@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewChild } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dish } from '../shared/dish'
@@ -23,6 +23,7 @@ import { visibility, flyInOut, expand } from '../animations/app.animations';
 })
 export class DishdetailComponent implements OnInit {
 
+  @ViewChild('cform') commentFormDirective;
   dish: Dish;
   dishIds: string[];
   errMess: string;

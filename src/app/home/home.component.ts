@@ -25,7 +25,9 @@ export class HomeComponent implements
 
   dish: Dish;
   leadership: Leader;
-  dishErrMess: string
+  dishErrMess: string;
+  PromotionErrMess: string;
+  LeaderErrMess: string;
   promotions: Promotion;
 
   constructor(private dishService: DishService,
@@ -38,9 +40,11 @@ export class HomeComponent implements
       .subscribe(dish => this.dish = dish,
         errMess => this.dishErrMess = <any>errMess);
     this.promotionService.getFeaturedPromotion()
-    .subscribe(promotion => this.promotions = promotion);
+    .subscribe(promotion => this.promotions = promotion,
+      errmess => this.PromotionErrMess = <any>errmess);
     this.leaderService.getFeaturedLeader()
-    .subscribe(leader => this.leadership = leader);
+    .subscribe(leader => this.leadership = leader,
+      errmess => this.LeaderErrMess = <any>errmess);
   }
 
 }
